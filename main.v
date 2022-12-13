@@ -34,6 +34,7 @@ fn main() {
     valid_cmds["help"] = true
     valid_cmds["init"] = true
     valid_cmds["reset"] = true
+    valid_cmds["list"] = true
 
 
     // check args
