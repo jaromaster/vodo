@@ -32,12 +32,17 @@ fn main() {
     valid_cmds["add"] = true
     valid_cmds["del"] = true
     valid_cmds["help"] = true
+    valid_cmds["init"] = true
+    valid_cmds["reset"] = true
 
 
+    // check args
     valid := check_input(args, valid_cmds)
-
     if valid == false {
         print_help()
         exit(1)
     }
+
+    // execute command
+    // TODO 
 }
