@@ -15,6 +15,11 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 		}
 		return message
 	}
+	// help command
+	else if cmd == "help" {
+		print_help()
+		return message
+	}
 
 
     return message

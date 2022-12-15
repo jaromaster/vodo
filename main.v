@@ -12,14 +12,7 @@ fn check_input(args []string, valid_cmds map[string]bool) bool {
         return false
     }
 
-    println(args[1])
-
     return true
-}
-
-// print help
-fn print_help() {
-    println("SYNTAX: vodo [CMD] [VALUE]")
 }
 
 
