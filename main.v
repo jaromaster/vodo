@@ -22,6 +22,7 @@ fn print_help() {
     println("SYNTAX: vodo [CMD] [VALUE]")
 }
 
+
 fn main() {
     // get args
     args := os.args.clone()
@@ -37,6 +38,11 @@ fn main() {
     valid_cmds["list"] = true
 
 
+    // path to .vodo.csv
+    vodo_dir_path := os.home_dir() + "/.vodo"
+    vodo_csv_path := vodo_dir_path + "/.vodo.csv"
+
+
     // check args
     valid := check_input(args, valid_cmds)
     if valid == false {
@@ -45,5 +51,7 @@ fn main() {
     }
 
     // execute command
-    // TODO 
+    execute_cmd(args, vodo_dir_path, vodo_csv_path) or {
+        println(err)
+    }
 }
