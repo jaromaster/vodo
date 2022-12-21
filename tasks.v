@@ -34,8 +34,38 @@ fn add_task(vodo_csv_path string, task_desc string) ? {
 	}
 }
 
-// TODO delete task
 
-// TODO get all tasks
+// get all tasks as lists of strings (each row of csv file separated by comma)
+fn get_tasks(vodo_csv_path string) ?[][]string {
+	separator := ","
+
+	lines := os.read_lines(vodo_csv_path) or {
+		return error("could not read vodo file. please run 'vodo init' first")
+	}
+	
+	mut tasks := [][]string{}
+	for i in 1..lines.len { // skip header => 1..end
+		task := lines[i].split(separator)
+		tasks << task
+	}
+
+	return tasks
+}
+
+
+// print the tasks as a list
+fn print_tasks(tasks [][]string) {
+	list_style := "-" // style of list items
+
+	for task in tasks {
+		description := task[1]
+		output := "${list_style} ${description}"
+
+		println(output)
+	}
+}
+
+
+// TODO delete task
 
 // TODO search/filter tasks
