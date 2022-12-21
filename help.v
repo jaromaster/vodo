@@ -18,6 +18,6 @@ pub fn print_help() {
 	println("\thelp ... 'vodo help'")
 	println("\treset ... 'vodo reset'")
 	println("\tadd ... 'vodo add \"some-task\"'")
-	println("\tdel ... TODO")
+	println("\tdel ... TODO") // TODO
 	println("\tlist ... 'vodo list'")
 }
