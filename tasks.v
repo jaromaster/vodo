@@ -23,7 +23,7 @@ fn add_task(vodo_csv_path string, task_desc string) ? {
 	}
 
 	mut csv_file := os.open_append(vodo_csv_path) or {
-		return err
+		return error("could not add task to vodo file. please run 'vodo init' first")
 	}
 	defer {csv_file.close()}
 
