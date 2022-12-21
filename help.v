@@ -1,15 +1,17 @@
 
 // print help
 pub fn print_help() {
-    println("SYNTAX: vodo [CMD] [VALUE]")
+	// basic syntax
+    println("Syntax:")
+	println("\tvodo [CMD] [VALUE]")
 	
 	// commands
 	println("Commands:")
-	println("\tinit ... init vodo")
+	println("\tinit ... init and setup vodo")
 	println("\thelp ... print this help")
-	println("\treset ... reset vodo")
+	println("\treset ... reset vodo (remove all data)")
 	println("\tadd ... add new task")
-	println("\tdel ... delete task")
+	println("\tdel ... delete task with id")
 	println("\tlist ... list all tasks")
 
 	// examples/command usage
@@ -18,6 +20,6 @@ pub fn print_help() {
 	println("\thelp ... 'vodo help'")
 	println("\treset ... 'vodo reset'")
 	println("\tadd ... 'vodo add \"some-task\"'")
-	println("\tdel ... TODO") // TODO
+	println("\tdel ... 'vodo del ID'")
 	println("\tlist ... 'vodo list'")
 }
