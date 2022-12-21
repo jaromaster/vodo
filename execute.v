@@ -7,7 +7,7 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 
 	// init command
 	if cmd == "init" {
-		println("running vodo init...")
+		println("initializing vodo...")
 
 		init_cmd(vodo_dir_path, vodo_csv_path) or {
 			return err
