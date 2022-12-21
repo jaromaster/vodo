@@ -25,6 +25,20 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 			return err
 		}
 	}
+	// add command
+	else if cmd == "add" {
+
+		if args.len != 3 {
+			return error("invalid number of arguments. please use 'vodo help' to print the help")
+		}
+
+		task_desc := args[2]
+		println("adding '" + task_desc + "' to tasks...")
+
+		add_task(vodo_csv_path, task_desc) or {
+			return err
+		}
+	}
 
 
     return message
