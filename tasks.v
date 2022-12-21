@@ -1,9 +1,9 @@
 import os
-import rand
+import strconv
 
 // Task struct
 struct Task {
-	id string [required]
+	id int [required]
 	description string [required]
 }
 
@@ -22,12 +22,22 @@ fn add_task(vodo_csv_path string, task_desc string) ? {
 		return error("could not find vodo folder / file. please run 'vodo init' first")
 	}
 
+	old_tasks := get_tasks(vodo_csv_path) or {
+		return err
+	}
+
 	mut csv_file := os.open_append(vodo_csv_path) or {
 		return error("could not add task to vodo file. please run 'vodo init' first")
 	}
 	defer {csv_file.close()}
 
-	task := Task{id: rand.uuid_v4(), description: task_desc}
+	// get next id
+	mut max_id := 0
+	for t in old_tasks {
+		max_id = t.id
+	}
+
+	task := Task{id: max_id+1, description: task_desc}
 
 	csv_file.writeln(task.to_csv()) or {
 		return error("could not write to vodo file. please run 'vodo init' first")
@@ -36,16 +46,22 @@ fn add_task(vodo_csv_path string, task_desc string) ? {
 
 
 // get all tasks as lists of strings (each row of csv file separated by comma)
-fn get_tasks(vodo_csv_path string) ?[][]string {
+fn get_tasks(vodo_csv_path string) ?[]Task {
 	separator := ","
 
 	lines := os.read_lines(vodo_csv_path) or {
 		return error("could not read vodo file. please run 'vodo init' first")
 	}
 	
-	mut tasks := [][]string{}
+	mut tasks := []Task{}
 	for i in 1..lines.len { // skip header => 1..end
-		task := lines[i].split(separator)
+		task_arr := lines[i].split(separator)
+		id := strconv.atoi(task_arr[0]) or {
+			return err
+		}
+		description := task_arr[1]
+		task := Task{id: id, description: description}
+
 		tasks << task
 	}
 
@@ -54,12 +70,11 @@ fn get_tasks(vodo_csv_path string) ?[][]string {
 
 
 // print the tasks as a list
-fn print_tasks(tasks [][]string) {
+fn print_tasks(tasks []Task) {
 	list_style := "-" // style of list items
 
 	for task in tasks {
-		description := task[1]
-		output := "${list_style} ${description}"
+		output := "${list_style} (id: ${task.id})\t${task.description}" // display task
 
 		println(output)
 	}
