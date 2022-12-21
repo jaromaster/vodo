@@ -81,6 +81,34 @@ fn print_tasks(tasks []Task) {
 }
 
 
-// TODO delete task
+// delete task by id
+fn delete_task(task_id int, vodo_csv_path string) ?{
+	
+	mut old_tasks := get_tasks(vodo_csv_path) or {
+		return err
+	}
+
+	mut csv_file := os.open_file(vodo_csv_path, "w") or {
+		return err
+	}
+	defer {csv_file.close()}
+
+	// writer header to file
+	csv_header := "id,task"
+	csv_file.writeln(csv_header) or {
+		return err
+	}
+
+	// write all tasks to file, but delete the task with id by skipping it
+	for t in old_tasks {
+		if t.id == task_id {
+			continue
+		}
+		csv_file.writeln(t.to_csv()) or {
+			return err
+		}
+	}
+}
+
 
 // TODO search/filter tasks
