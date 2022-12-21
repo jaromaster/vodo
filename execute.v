@@ -30,13 +30,7 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 	// add command
 	else if cmd == "add" {
 
-		if args.len != 3 {
-			return error("invalid number of arguments. please use 'vodo help' to print the help")
-		}
-
 		task_desc := args[2]
-		println("adding '" + task_desc + "' to tasks...")
-
 		add_task(vodo_csv_path, task_desc) or {
 			return err
 		}
@@ -53,14 +47,9 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 	// delete command
 	else if cmd == "del" {
 
-		if args.len != 3 {
-			return error("invalid number of arguments. please use 'vodo help' to print the help")
-		}
-
 		task_id := strconv.atoi(args[2]) or {
 			return err
 		}
-
 		delete_task(task_id, vodo_csv_path) or {
 			return err
 		}

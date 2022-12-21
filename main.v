@@ -1,14 +1,14 @@
 import os
 
 // check if cmd args/flags valid
-fn check_input(args []string, valid_cmds map[string]bool) bool {
+fn check_input(args []string, valid_cmds map[string]int) bool {
 
     if args.len < 2 {
         return false
     }
 
     cmd := args[1]
-    if valid_cmds[cmd] == false {
+    if valid_cmds[cmd] == 0 || args.len != valid_cmds[cmd] {
         return false
     }
 
@@ -21,14 +21,14 @@ fn main() {
     args := os.args.clone()
 
 
-    // all valid commands
-    mut valid_cmds := map[string]bool
-    valid_cmds["add"] = true
-    valid_cmds["del"] = true
-    valid_cmds["help"] = true
-    valid_cmds["init"] = true
-    valid_cmds["reset"] = true
-    valid_cmds["list"] = true
+    // all valid commands with number of args
+    mut valid_cmds := map[string]int
+    valid_cmds["add"] = 3
+    valid_cmds["del"] = 3
+    valid_cmds["help"] = 2
+    valid_cmds["init"] = 2
+    valid_cmds["reset"] = 2
+    valid_cmds["list"] = 2
 
 
     // path to .vodo.csv
