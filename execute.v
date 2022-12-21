@@ -2,7 +2,6 @@
 // execute the command and return message
 pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?string {
 	message := "successful"
-
 	cmd := args[1]
 
 
@@ -13,12 +12,18 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 		init_cmd(vodo_dir_path, vodo_csv_path) or {
 			return err
 		}
-		return message
 	}
 	// help command
 	else if cmd == "help" {
 		print_help()
-		return message
+	}
+	// reset command
+	else if cmd == "reset" {
+		println("resetting vodo...")
+
+		reset_cmd(vodo_dir_path) or {
+			return err
+		}
 	}
 
 

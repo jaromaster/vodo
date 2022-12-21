@@ -46,5 +46,6 @@ fn main() {
     // execute command
     execute_cmd(args, vodo_dir_path, vodo_csv_path) or {
         println(err)
+        exit(1)
     }
 }
