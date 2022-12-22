@@ -18,10 +18,6 @@ fn (t Task) to_csv() string {
 // add new task to tasks
 fn add_task(vodo_csv_path string, task_desc string) ? {
 
-	if os.is_file(vodo_csv_path) == false {
-		return error("could not find vodo folder / file. please run 'vodo init' first")
-	}
-
 	old_tasks := get_tasks(vodo_csv_path) or {
 		return err
 	}

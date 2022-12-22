@@ -1,10 +1,20 @@
 import strconv
+import os
 
 
 // execute the command and return message
 pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?string {
 	message := "successful"
 	cmd := args[1]
+
+
+	// check if vodo folder / csv file exist (if needed for command)
+	special_cmds := ["help", "init", "reset"]
+	if cmd !in special_cmds {
+		check_vodo_inited(vodo_csv_path) or {
+			return err
+		}
+	}
 
 
 	// init command
@@ -60,3 +70,11 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 }
 
 
+// check if vodo csv file exist
+fn check_vodo_inited(vodo_csv_path string) ?{
+
+	err_msg := "could not find vodo folder. please run 'vodo init' first"
+	if os.is_file(vodo_csv_path) == false {
+		return error(err_msg)
+	}
+}
