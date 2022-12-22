@@ -40,8 +40,10 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 	// add command
 	else if cmd == "add" {
 
-		task_desc := args[2]
-		add_task(vodo_csv_path, task_desc) or {
+		task_desc := args[2].trim_space()
+		until := args[3].trim_space()
+
+		add_task(vodo_csv_path, task_desc, until) or {
 			return err
 		}
 	}

@@ -23,7 +23,7 @@ fn main() {
 
     // all valid commands with number of args
     mut valid_cmds := map[string]int
-    valid_cmds["add"] = 3
+    valid_cmds["add"] = 4
     valid_cmds["del"] = 3
     valid_cmds["search"] = 3
     valid_cmds["help"] = 2
