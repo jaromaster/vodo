@@ -64,6 +64,20 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 			return err
 		}
 	}
+	// search command
+	else if cmd == "search" {
+
+		search := args[2]
+		tasks := search_tasks(search, vodo_csv_path) or {
+			return err
+		}
+
+		if tasks.len > 0 {
+			print_tasks(tasks)
+		} else {
+			println("no results for '" + search + "'")
+		}
+	}
 
 
     return message

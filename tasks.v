@@ -107,4 +107,20 @@ fn delete_task(task_id int, vodo_csv_path string) ?{
 }
 
 
-// TODO search/filter tasks
+// search/filter tasks and return matches
+fn search_tasks(search string, vodo_csv_path string) ?[]Task {
+	mut old_tasks := get_tasks(vodo_csv_path) or {
+		return err
+	}
+
+	search_lower := search.to_lower()
+
+	mut potential_targets := []Task{cap: old_tasks.len}
+	for t in old_tasks {
+		if t.description.to_lower().contains(search_lower) {
+			potential_targets << t
+		}
+	}
+
+	return potential_targets
+}

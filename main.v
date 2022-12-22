@@ -25,6 +25,7 @@ fn main() {
     mut valid_cmds := map[string]int
     valid_cmds["add"] = 3
     valid_cmds["del"] = 3
+    valid_cmds["search"] = 3
     valid_cmds["help"] = 2
     valid_cmds["init"] = 2
     valid_cmds["reset"] = 2
