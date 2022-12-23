@@ -3,7 +3,6 @@ import os
 
 // init (create new dir and csv file for persisting tasks)
 pub fn init_cmd(vodo_dir_path string, vodo_csv_path string) ?{
-
 	create_dir(vodo_dir_path) or {
 		return err
 	}
@@ -26,7 +25,6 @@ fn create_dir(vodo_dir_path string) ? {
 
 // create new csv file for storing all tasks if not exists
 fn create_csv_file(vodo_dir_path string, vodo_csv_path string) ?{
-
 	if os.is_file(vodo_csv_path) {
 		return error("file already exists, please reset first!")
 	}

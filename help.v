@@ -20,7 +20,7 @@ pub fn print_help() {
 	println("\tinit ... 'vodo init'")
 	println("\thelp ... 'vodo help'")
 	println("\treset ... 'vodo reset'")
-	println("\tadd ... 'vodo add \"some-task\" \"YYYY-MM-DD HH:mm:ss\"' or 'vodo add \"some-task\" -") // TODO time support and format: "YYYY-MM-DD HH:mm:ss"
+	println("\tadd ... 'vodo add \"some-task\" \"YYYY-MM-DD HH:mm:ss\"' or 'vodo add \"some-task\" -")
 	println("\tdel ... 'vodo del ID'")
 	println("\tsearch ... 'vodo search \"some-task\"'")
 	println("\tlist ... 'vodo list'")

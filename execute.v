@@ -3,10 +3,8 @@ import os
 
 
 // execute the command and return message
-pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?string {
-	message := "successful"
+pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ? {
 	cmd := args[1]
-
 
 	// check if vodo folder / csv file exist (if needed for command)
 	special_cmds := ["help", "init", "reset"]
@@ -86,15 +84,11 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 			println("no results for '" + search + "'")
 		}
 	}
-
-
-    return message
 }
 
 
 // check if vodo csv file exist
 fn check_vodo_inited(vodo_csv_path string) ?{
-
 	err_msg := "could not find vodo folder. please run 'vodo init' first"
 	if os.is_file(vodo_csv_path) == false {
 		return error(err_msg)

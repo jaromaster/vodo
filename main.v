@@ -2,7 +2,6 @@ import os
 
 // check if cmd args/flags valid
 fn check_input(args []string, valid_cmds map[string]int) bool {
-
     if args.len < 2 {
         return false
     }

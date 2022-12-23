@@ -11,7 +11,6 @@ struct Task {
 
 // convert task to csv row (for persisting)
 fn (t Task) to_csv() string {
-
 	s := "${t.id},${t.description},${t.until}"
 	return s
 }
@@ -56,8 +55,6 @@ fn add_task(vodo_csv_path string, task_desc string, time_str string) ? {
 
 // get all tasks as lists of strings (each row of csv file separated by comma)
 fn get_tasks(vodo_csv_path string) ?[]Task {
-	
-
 	lines := os.read_lines(vodo_csv_path) or {
 		return error("could not read vodo file. please run 'vodo init' first")
 	}
@@ -81,7 +78,6 @@ fn get_tasks(vodo_csv_path string) ?[]Task {
 
 // print the tasks as a list
 fn print_tasks(tasks []Task) {
-
 	for task in tasks {
 		output := "${list_style}${task.id}\t${task.description}" // display task without time
 		output_with_time := "${list_style}${task.id}\t${task.description:-20}\t${task.until}" // display with time
@@ -97,7 +93,6 @@ fn print_tasks(tasks []Task) {
 
 // delete task by id
 fn delete_task(task_id int, vodo_csv_path string) ?{
-	
 	mut old_tasks := get_tasks(vodo_csv_path) or {
 		return err
 	}
