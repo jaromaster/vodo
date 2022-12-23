@@ -36,9 +36,13 @@ fn add_task(vodo_csv_path string, task_desc string, time_str string) ? {
 
 	until_time := time_str
 	if time_str != until_replacement { // check time format if not empty
-		time.parse(time_str) or {
+		check_time := time.parse(time_str) or {
 			err_msg := "invalid datetime format.\nexamples:\nvodo add \"some-task\" '1980-07-11 21:00:00' or\nvodo add \"some-task\" '-' (to ignore datetime)"
 			return error(err_msg)
+		}
+
+		if check_time < time.now() { // not past
+			return error("datetime must be greater than current datetime")
 		}
 	}
 
@@ -80,7 +84,7 @@ fn print_tasks(tasks []Task) {
 
 	for task in tasks {
 		output := "${list_style}${task.id}\t${task.description}" // display task without time
-		output_with_time := "${list_style}${task.id}\t${task.description}, ${task.until}" // display with time
+		output_with_time := "${list_style}${task.id}\t${task.description:-20}\t${task.until}" // display with time
 
 		if task.until == until_replacement {
 			println(output)
@@ -136,4 +140,43 @@ fn search_tasks(search string, vodo_csv_path string) ?[]Task {
 	}
 
 	return potential_targets
+}
+
+
+// sort tasks by datetime
+fn sort_by_until(tasks []Task) ?[]Task {
+	mut sorted_tasks := tasks.clone()
+
+	sort_fn := fn (t1 &Task, t2 &Task) int {
+		// no time: last in order
+		if t1.until == until_replacement {
+			return 1
+		}
+		else if t2.until == until_replacement {
+			return -1
+		}
+
+		// parse times
+		time1 := time.parse(t1.until) or {
+			println("could not sort all tasks, because time format is invalid")
+			return 0
+		}
+		time2 := time.parse(t2.until) or {
+			println("could not sort all tasks, because time format is invalid")
+			return 0
+		}
+
+		// compare datetimes
+		if time1 < time2 {
+			return -1
+		}
+		else if time2 < time1 {
+			return 1
+		}
+
+		return 0
+	}
+
+	sorted_tasks.sort_with_compare(sort_fn)
+	return sorted_tasks
 }

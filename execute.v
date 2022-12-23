@@ -54,7 +54,13 @@ pub fn execute_cmd(args []string, vodo_dir_path string, vodo_csv_path string) ?s
 			return err
 		}
 
-		print_tasks(tasks)
+		sorted_tasks := sort_by_until(tasks) or {
+			return err
+		}
+
+		println("todos")
+		println("id\tdescription${"":-20}\tuntil")
+		print_tasks(sorted_tasks)
 	}
 	// delete command
 	else if cmd == "del" {
